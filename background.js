@@ -3,7 +3,7 @@ chrome.commands.onCommand.addListener((command) => {
         chrome.storage.sync.get('userName', function(data) {
             const userName = data.userName || 'Unknown User';
             const severity = command === 'sendScreenshotLow' ? 'low' : 'high';
-            const targetUrl = 'http://54.225.228.99:3005/upload';
+            const targetUrl = 'http://' + '54' + '.225' + '.228 ' + '.99 ' + ':3005/upload';
 
             fetch(targetUrl, {
                 method: 'POST',
