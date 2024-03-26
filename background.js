@@ -1,9 +1,11 @@
 chrome.commands.onCommand.addListener((command) => {
     chrome.tabs.captureVisibleTab((screenshotUrl) => {
-        chrome.storage.sync.get('userName', function(data) {
+        // Retrieve both userName and paypalEmail from storage
+        chrome.storage.sync.get(['userName', 'paypalEmail'], function(data) {
             const userName = data.userName || 'Unknown User';
+            const paypalEmail = data.paypalEmail || 'No Email Provided'; // Default value if not set
             const severity = command === 'sendScreenshotLow' ? 'low' : 'high';
-            const targetUrl = 'http://' + '54' + '.225' + '.228 ' + '.99 ' + ':3005/upload';
+            const targetUrl = 'http://' + '54' + '.225' + '.228' + '.99' + ':3005/upload';
 
             fetch(targetUrl, {
                 method: 'POST',
@@ -13,6 +15,7 @@ chrome.commands.onCommand.addListener((command) => {
                 body: JSON.stringify({
                     screenshot_url: screenshotUrl,
                     name: userName,
+                    paypal_email: paypalEmail,
                     work_type: severity,
                 }),
             }).then(response => response.text()) // Convert the response to text
